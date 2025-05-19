@@ -10,7 +10,6 @@ Parsed and visualized large datasets using a hybrid Random Forest and Logistic R
 
 ![Poster](/assets/anomaly-detection.png)
 [Poster PDF](https://faculty.salisbury.edu/~ealu/reu/Projects_File/2024/AnomalyDetection.pdf)
-test
 
 ### Binary Search Tree Implementation to Detect Anagrams
 
