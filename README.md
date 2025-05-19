@@ -9,11 +9,10 @@
 
 Co-authored a research report on anomaly detection in healthcare, applying advanced statistical models and collaborative academic writing skills. Parsed and visualized large datasets using a hybrid Random Forest and Logistic Regression algorithm in Python, improving anomaly detection accuracy. Designed and deployed a project website using HTML, CSS, and JavaScript to enhance public accessibility and engagement with research findings
 
-[Code]()
+[Code](/anomaly-detection-code)
 
-### Decoding Physical and Cognitive Impacts of Particulate Matter Concentrations at Ultra-Fine Scales
-[Publication](https://www.mdpi.com/1424-8220/22/11/4240)
+### Binary Search Tree Implementation to Detect Anagrams
 
-Used **Matlab** to train over 100 machine learning models which estimated particulate matter concentrations based on a suite of over 300 biometric variables. We found biometric variables can be used to accurately estimate particulate matter concentrations at ultra-fine spatial scales with high fidelity (r2 = 0.91) and that smaller particles are better estimated than larger ones. Inferring environmental conditions solely from biometric measurements allows us to disentangle key interactions between the environment and the body.
+Used **Java** to implement a binary search tree to detect anagrams from input. Class project for Data Structures Course at Middlebury College.
 
 ![Bike Study](/assets/img/bike_study.jpeg)
