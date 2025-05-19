@@ -17,4 +17,6 @@ Used **Java** to implement a binary search tree to detect anagrams from input. C
 
 Used **Javascript**, **HTML**, and **CSS** for a website implementation of John Conway's zero-player game Game of Life. Personal project in high school.
 
+![Game of Life](/assets/game-of-life.png)
+
 #### All code is on my github page.
