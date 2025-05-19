@@ -15,4 +15,10 @@ Co-authored a research report on anomaly detection in healthcare, applying advan
 
 Used **Java** to implement a binary search tree to detect anagrams from input. Class project for Data Structures Course at Middlebury College.
 
-![Bike Study](/assets/img/bike_study.jpeg)
+[Code](/bst-code)
+
+### Web Implementation of Conway's Game of Life
+
+Used **Java** to implement a binary search tree to detect anagrams from input. Class project for Data Structures Course at Middlebury College.
+
+[Code](/bst-code)
