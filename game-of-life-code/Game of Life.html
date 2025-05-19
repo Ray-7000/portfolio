@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Game of Life</title>
+    <style>
+        .pageLayout {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align:center">Game of Life</h1>
+    <div class="pageLayout">
+        <div class="container">
+            <canvas id="myCanvas" width="700" height="550"></canvas>
+        </div>
+        <div class="add-ons">
+            <button onclick="click_fn(grid)">Iterate</button>
+            <button onclick="backtonormal()">Reset</button>
+            <form>
+                Number of Blocks to Turn Alive:
+                <input type="number" id="turnalive" value="" />
+                <br/> Number of Blocks to Turn Dead:
+                <input type="number" id="turndead1" value="" />
+                <input type="number" id="turndead2" value="" />
+            </form>
+            <button onclick="change_life()">Change</button>
+            <form>
+                Side Length (smaller than 45):
+                <input type="number" id="sidelength" value="" />
+            </form>
+            <button onclick="change_sidelength()">Change</button>
+            <p id="highnum"></p>
+            <p id="lownum"></p>
+            <p id="timesnum"></p>
+            <button onclick="automate_slow()">Slow Auto</button>
+            <button onclick="automate_fast()">Fast Auto</button>
+            <button onclick="stop_procedure()">Stop</button>
+            <p>Some Cool Shapes: </p>
+            <button onclick="glider()">Glider</button>
+            <button onclick="spaceship()">Spaceship</button>
+            <button onclick="star()">Star</button>
+            <br/>
+            <button onclick="howtoplay()">How to Play</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function howtoplay() {
+            var str = "Game of Life is a Simulator/Game that simulates the habit of a group of cells. In the original game, a living cell continues to live if 2 or 3 of the 8 cells surrounding it is also alive, and dies if it is another number. A dead cell turns alive if there are exactly 3 living cells surrounding it. In this simulation, living cells are black and dead cells are white.\nIterate: Generate a New Round of Cells\nReset: Reset the Page to the Original State\nBlocks: Change the Number of Blocks for a Dead Cell to Turn Alive or a Living Cell to Turn Dead\nSide Length: Change the Side Length of the Grid\nIterations: Record the Number of Iterations for a Given Grid"
+            alert(str);
+        }
+        var side = 45;
+        var grid = new Array(side);
+        var high = 0;
+        for (var i = 0; i < side; i++) {
+            grid[i] = new Array(side);
+        }
+        for (var i = 0; i < side; i++) {
+            for (var j = 0; j < side; j++) {
+                grid[i][j] = Math.floor(Math.random() * 2);
+                high += grid[i][j];
+            }
+        }
+        low = high;
+        display(grid);
+        var times = 0;
+        document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+        document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+        document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+
+        var aliveblock = 3;
+        var deadblock1 = 2;
+        var deadblock2 = 3;
+
+        function change_sidelength() {
+            document.getElementById("myCanvas").height = 550;
+            side = document.getElementById("sidelength").value;
+            grid = new Array(side);
+            for (var i = 0; i < side; i++) {
+                grid[i] = new Array(side);
+            }
+            high = 0;
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    grid[i][j] = Math.floor(Math.random() * 2);
+                    high += grid[i][j];
+                }
+            }
+            low = high;
+            times = 0;
+            document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+            document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+            document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+            display(grid);
+        }
+
+        function backtonormal() { //resets the webpage to its original state and generates a new random grid of cells
+            stop_procedure();
+            side = 45;
+            grid = new Array(side);
+            for (var i = 0; i < side; i++) {
+                grid[i] = new Array(side);
+            }
+            high = 0;
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    grid[i][j] = Math.floor(Math.random() * 2);
+                    high += grid[i][j];
+                }
+            }
+            low = high;
+            times = 0;
+            document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+            document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+            document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+            aliveblock = 3;
+            deadblock1 = 2;
+            deadblock2 = 3;
+            display(grid);
+        }
+
+        function star() {
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    grid[i][j] = 0;
+                }
+            }
+            grid[4][2] = grid[5][2] = grid[6][2] = 1;
+            grid[4][7] = grid[5][7] = grid[6][7] = 1;
+            grid[2][4] = grid[2][5] = grid[2][6] = 1;
+            grid[7][4] = grid[7][5] = grid[7][6] = 1;
+            grid[10][2] = grid[11][2] = grid[12][2] = 1;
+            grid[10][7] = grid[11][7] = grid[12][7] = 1;
+            grid[9][4] = grid[9][5] = grid[9][6] = 1;
+            grid[14][4] = grid[14][5] = grid[14][6] = 1;
+            grid[4][9] = grid[5][9] = grid[6][9] = 1;
+            grid[4][14] = grid[5][14] = grid[6][14] = 1;
+            grid[2][10] = grid[2][11] = grid[2][12] = 1;
+            grid[7][10] = grid[7][11] = grid[7][12] = 1;
+            grid[10][9] = grid[11][9] = grid[12][9] = 1;
+            grid[10][14] = grid[11][14] = grid[12][14] = 1;
+            grid[9][10] = grid[9][11] = grid[9][12] = 1;
+            grid[14][10] = grid[14][11] = grid[14][12] = 1;
+            high = 48;
+            low = high;
+            times = 0;
+            document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+            document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+            document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+            display(grid);
+        }
+
+        function spaceship() {
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    grid[i][j] = 0;
+                }
+            }
+            grid[2][3] = 1;
+            grid[2][4] = 1;
+            grid[3][2] = 1;
+            grid[4][2] = 1;
+            grid[3][3] = 1;
+            grid[3][4] = 1;
+            grid[4][3] = 1;
+            grid[5][3] = 1;
+            grid[5][4] = 1;
+            grid[6][4] = 1;
+            grid[5][5] = 1;
+            grid[4][5] = 1;
+            high = 12;
+            low = high;
+            times = 0;
+            document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+            document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+            document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+            display(grid);
+        }
+
+        function glider() {
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    grid[i][j] = 0;
+                }
+            }
+            grid[4][2] = 1;
+            grid[4][3] = 1;
+            grid[4][4] = 1;
+            grid[3][4] = 1;
+            grid[2][3] = 1;
+            high = 5;
+            low = high;
+            times = 0;
+            document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+            document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+            document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+            display(grid);
+        }
+
+        var slow;
+        var fast;
+
+        function stop_procedure() { //stop automation if automation is going on
+            clearInterval(slow);
+            clearInterval(fast);
+        }
+
+        function automate_slow() {
+            clearInterval(fast);
+            slow = setInterval(function() {
+                click_fn(grid)
+            }, 500);
+        }
+
+        function automate_fast() {
+            clearInterval(slow);
+            fast = setInterval(function() {
+                click_fn(grid)
+            }, 30);
+        }
+
+        function click_count() { //counts how many living cells there are and updates the highest and lowest amount
+            var count1 = 0;
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    if (grid[i][j] == 1) {
+                        count1++;
+                    }
+                }
+            }
+            if (count1 > high) {
+                high = count1;
+            }
+            if (count1 < low) {
+                low = count1;
+            }
+        }
+
+        function change_life() { //changes the amount of cells for a giving cell to change
+            aliveblock = document.getElementById("turnalive").value;
+            deadblock1 = document.getElementById("turndead1").value;
+            deadblock2 = document.getElementById("turndead2").value;
+            display(grid);
+        }
+
+        function click_fn(a) { //updates the grid of cells using the rules of the simulation (this is the core algorithm of the program)
+            var count2 = 0;
+            var grid1 = new Array(side);
+            for (var i = 0; i < side; i++) {
+                grid1[i] = new Array(side);
+            }
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    if (a[i][j] == 0) {
+                        if (cell(a, i, j) == aliveblock) {
+                            grid1[i][j] = 1;
+                            continue;
+                        }
+                    } else {
+                        if (cell(a, i, j) < deadblock1 || cell(a, i, j) > deadblock2) {
+                            grid1[i][j] = 0;
+                            continue;
+                        }
+                    }
+                    grid1[i][j] = a[i][j];
+                    count2 += a[i][j];
+                }
+            }
+            if (count2 == 0) {
+                return;
+            }
+            times++;
+            grid = grid1;
+            click_count();
+            document.getElementById("highnum").innerHTML = "Highest Number of Cells: " + high;
+            document.getElementById("lownum").innerHTML = "Lowest Number of Cells: " + low;
+            document.getElementById("timesnum").innerHTML = "Iterations: " + times;
+            display(grid);
+        }
+
+        function cell(grid, x, y) { //counts how many living cells are around a given cell
+            var count = 0;
+            if (x == 0) {
+                if (y == 0) {
+                    count += grid[x + 1][y];
+                    count += grid[x + 1][y + 1];
+                    count += grid[x][y + 1];
+                } else if (y == side - 1) {
+                    count += grid[x + 1][y];
+                    count += grid[x + 1][y - 1];
+                    count += grid[x][y - 1];
+                } else {
+                    count += grid[x][y - 1];
+                    count += grid[x][y + 1];
+                    count += grid[x + 1][y + 1];
+                    count += grid[x + 1][y];
+                    count += grid[x + 1][y - 1];
+                }
+            } else if (x == side - 1) {
+                if (y == side - 1) {
+                    count += grid[x - 1][y];
+                    count += grid[x - 1][y - 1];
+                    count += grid[x][y - 1];
+                } else if (y == 0) {
+                    count += grid[x - 1][y];
+                    count += grid[x - 1][y + 1];
+                    count += grid[x][y + 1];
+                } else {
+                    count += grid[x][y - 1];
+                    count += grid[x][y + 1];
+                    count += grid[x - 1][y + 1];
+                    count += grid[x - 1][y];
+                    count += grid[x - 1][y - 1];
+                }
+            } else {
+                if (y == 0) {
+                    count += grid[x - 1][y];
+                    count += grid[x - 1][y + 1];
+                    count += grid[x][y + 1];
+                    count += grid[x + 1][y + 1];
+                    count += grid[x + 1][y];
+                } else if (y == side - 1) {
+                    count += grid[x - 1][y];
+                    count += grid[x - 1][y - 1];
+                    count += grid[x][y - 1];
+                    count += grid[x + 1][y - 1];
+                    count += grid[x + 1][y];
+                } else {
+                    count += grid[x - 1][y - 1];
+                    count += grid[x - 1][y];
+                    count += grid[x - 1][y + 1];
+                    count += grid[x][y - 1];
+                    count += grid[x][y + 1];
+                    count += grid[x + 1][y - 1];
+                    count += grid[x + 1][y];
+                    count += grid[x + 1][y + 1];
+                }
+            }
+            return count;
+        }
+
+        function display(grid) {
+            var x = 75;
+            var y = 1;
+            var sqside = 12;
+            for (var i = 0; i < side; i++) {
+                for (var j = 0; j < side; j++) {
+                    var c = document.getElementById("myCanvas");
+                    var ctx = c.getContext("2d");
+                    if (grid[i][j] == 0) {
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.fillRect(x, y, sqside, sqside);
+                        ctx.strokeRect(x, y, sqside, sqside);
+                    } else {
+                        ctx.fillStyle = "#000000";
+                        ctx.fillRect(x, y, sqside, sqside);
+                        ctx.strokeRect(x, y, sqside, sqside);
+                    }
+                    y += sqside;
+                }
+                x += sqside;
+                y = 1;
+            }
+        }
+    </script>
+</body>
+
+</html>
