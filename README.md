@@ -7,7 +7,7 @@
 ### Anomaly Detection Algorithm for Healthcare Datasets
 [Poster](https://faculty.salisbury.edu/~ealu/reu/Projects_File/2024/AnomalyDetection.pdf)
 
-Co-authored a research report on anomaly detection in healthcare, applying advanced statistical models and collaborative academic writing skills. Parsed and visualized large datasets using a hybrid Random Forest and Logistic Regression algorithm in Python, improving anomaly detection accuracy. Designed and deployed a project website using HTML, CSS, and JavaScript to enhance public accessibility and engagement with research findings
+Parsed and visualized large datasets using a hybrid Random Forest and Logistic Regression algorithm in Python, improving anomaly detection accuracy. Designed and deployed a project website using **Javascript**, **HTML**, and **CSS**.
 
 [Code](/anomaly-detection-code)
 
@@ -19,6 +19,5 @@ Used **Java** to implement a binary search tree to detect anagrams from input. C
 
 ### Web Implementation of Conway's Game of Life
 
-Used **Java** to implement a binary search tree to detect anagrams from input. Class project for Data Structures Course at Middlebury College.
-
-[Code](/bst-code)
+Used **Javascript**, **HTML**, and **CSS** for a website implementation of John Conway's zero-player game Game of Life. 
+[Code](/game-of-life-code)
