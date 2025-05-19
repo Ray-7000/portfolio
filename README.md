@@ -9,6 +9,7 @@
 Parsed and visualized large datasets using a hybrid Random Forest and Logistic Regression algorithm in Python, improving anomaly detection accuracy. Designed and deployed a project website using **Javascript**, **HTML**, and **CSS**. Computer Science REU Research Project for Summer Research at Salisbury University.
 
 ![Poster](/assets/anomaly-detection.png)
+
 [Poster PDF](https://faculty.salisbury.edu/~ealu/reu/Projects_File/2024/AnomalyDetection.pdf)
 
 ### Binary Search Tree Implementation to Detect Anagrams
